@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>Models</AssemblyName>
+        <RootNamespace>RedRatShortcuts.Models</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="PresentationCore">
+        <HintPath>C:\Users\user\.dotnet\shared\Microsoft.WindowsDesktop.App\6.0.4\PresentationCore.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

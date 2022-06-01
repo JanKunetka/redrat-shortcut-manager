@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <RootNamespace>RedRatShortcuts.Views</RootNamespace>
+        <AssemblyName>Views</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="resource\img\img_StatusIndicator_Active.png" />
+      <Resource Include="Resource\img\img_StatusIndicator_Active.png" />
+      <None Remove="Resource\img\img_StatusIndicator_Inactive.png" />
+      <Resource Include="Resource\img\img_StatusIndicator_Inactive.png" />
+      <None Remove="Resource\img\img_ProgramIcon_Default.png" />
+      <Resource Include="Resource\img\img_ProgramIcon_Default.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
+    </ItemGroup>
+
+</Project>

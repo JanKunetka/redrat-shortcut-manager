@@ -1,0 +1,12 @@
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\bin\Debug\net6.0\ViewModels.deps.json
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\bin\Debug\net6.0\ViewModels.dll
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\bin\Debug\net6.0\ViewModels.pdb
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0\ViewModels.csproj.AssemblyReference.cache
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0\ViewModels.GeneratedMSBuildEditorConfig.editorconfig
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0\ViewModels.AssemblyInfoInputs.cache
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0\ViewModels.AssemblyInfo.cs
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0\ViewModels.csproj.CoreCompileInputs.cache
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0\ViewModels.dll
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0\refint\ViewModels.dll
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0\ViewModels.pdb
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0\ref\ViewModels.dll

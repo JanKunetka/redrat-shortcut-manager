@@ -1,0 +1,15 @@
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0-windows\ViewModels.csproj.AssemblyReference.cache
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0-windows\ViewModels.GeneratedMSBuildEditorConfig.editorconfig
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0-windows\ViewModels.AssemblyInfoInputs.cache
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0-windows\ViewModels.AssemblyInfo.cs
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0-windows\ViewModels.csproj.CoreCompileInputs.cache
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\bin\Debug\net6.0-windows\ViewModels.deps.json
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\bin\Debug\net6.0-windows\ViewModels.dll
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\bin\Debug\net6.0-windows\ViewModels.pdb
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\bin\Debug\net6.0-windows\Models.dll
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\bin\Debug\net6.0-windows\Models.pdb
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0-windows\ViewModels.csproj.CopyComplete
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0-windows\ViewModels.dll
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0-windows\refint\ViewModels.dll
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0-windows\ViewModels.pdb
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\ViewModels\obj\Debug\net6.0-windows\ref\ViewModels.dll

@@ -1,0 +1,12 @@
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Backend\bin\Debug\net6.0\Backend.deps.json
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Backend\bin\Debug\net6.0\Backend.dll
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Backend\bin\Debug\net6.0\Backend.pdb
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Backend\obj\Debug\net6.0\Backend.csproj.AssemblyReference.cache
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Backend\obj\Debug\net6.0\Backend.GeneratedMSBuildEditorConfig.editorconfig
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Backend\obj\Debug\net6.0\Backend.AssemblyInfoInputs.cache
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Backend\obj\Debug\net6.0\Backend.AssemblyInfo.cs
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Backend\obj\Debug\net6.0\Backend.csproj.CoreCompileInputs.cache
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Backend\obj\Debug\net6.0\Backend.dll
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Backend\obj\Debug\net6.0\refint\Backend.dll
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Backend\obj\Debug\net6.0\Backend.pdb
+D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Backend\obj\Debug\net6.0\ref\Backend.dll
