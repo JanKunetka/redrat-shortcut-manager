@@ -1,4 +1,6 @@
-﻿using RedRatShortcuts.ViewModels.Core;
+﻿using System.Windows;
+using RedRatShortcuts.Models.FileSystem;
+using RedRatShortcuts.ViewModels.Core;
 
 namespace RedRatShortcuts.ViewModels
 {
@@ -12,6 +14,13 @@ namespace RedRatShortcuts.ViewModels
         public MainVM()
         {
             CurrentVM = new ShortcutsScreenVM();
+            
+            FileOpener.OnErrorPathNotExist += ShowError;
+        }
+
+        private void ShowError(string message)
+        {
+            MessageBox.Show(message);
         }
 
     }

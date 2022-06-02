@@ -10,7 +10,10 @@
         },
         "runtime": {
           "bin/placeholder/Models.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
       }
     }
   },

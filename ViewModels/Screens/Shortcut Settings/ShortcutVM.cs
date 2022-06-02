@@ -1,4 +1,5 @@
-﻿using RedRatShortcuts.ViewModels.Core;
+﻿using RedRatShortcuts.Models.Shortcuts;
+using RedRatShortcuts.ViewModels.Core;
 
 namespace RedRatShortcuts.ViewModels
 {
@@ -29,10 +30,10 @@ namespace RedRatShortcuts.ViewModels
             }
         }
 
-        public ShortcutVM(string shortcut, string path)
+        public ShortcutVM(ShortcutKey key)
         {
-            Shortcut = shortcut;
-            Path = path;
+            Shortcut = $"{key.Modifier.ToString()} + {key.Key.ToString()}";
+            Path = key.Path;
         }
     }
 }

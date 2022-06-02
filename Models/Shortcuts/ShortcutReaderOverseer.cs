@@ -1,4 +1,6 @@
-﻿using RedRatShortcuts.Models.Shortcuts;
+﻿using System.Windows.Input;
+using RedRatShortcuts.Models.FileSystem;
+using RedRatShortcuts.Models.Shortcuts;
 
 namespace RedRatShortcuts.Models
 {
@@ -7,30 +9,46 @@ namespace RedRatShortcuts.Models
     /// </summary>
     public class ShortcutReaderOverseer
     {
-        private ShortcutReader reader;
-        
-        private readonly IDictionary<string, string> shortcuts;
-        
+        public IList<ShortcutKey> Shortcuts { get; private set; }
         private bool doProcessing;
 
         public ShortcutReaderOverseer()
         {
-            reader = new ShortcutReader();
-            
-            shortcuts = new Dictionary<string, string>();
+            Shortcuts = new List<ShortcutKey>(); 
             AddDefaultData();
+
+            ShortcutHookManager.OnKeyboardRead += Read;
         }
         
         public void Start() => doProcessing = true;
         public void End() => doProcessing = false;
-        public IDictionary<string, string> Get() => shortcuts;
 
+        private void Read()
+        {
+            foreach(ShortcutKey shortcut in Shortcuts)
+            {
+                if (shortcut.Pressed && Keyboard.IsKeyUp(shortcut.Key)) shortcut.Pressed = false;
+                
+                if (shortcut.Pressed) continue;
+                if ((Keyboard.Modifiers & shortcut.Modifier) <= 0) continue;
+                if (!Keyboard.IsKeyDown(shortcut.Key)) continue;
+                if (!shortcut.CanExecute) continue;
+
+                shortcut.Callback?.Invoke(shortcut.Path);
+                shortcut.Pressed = true;
+
+            }
+        }
+
+        private void OpenFile(string path)
+        {
+            FileOpener.Open(path);
+        }
         
         private void AddDefaultData()
         {
-            shortcuts.Add("fred", "C:/Users/user/Saved Games");
-            shortcuts.Add("aud", "C:/Program Files/Audacity/Audacity.exe");
-            shortcuts.Add("ase", "D:/User Files/Obrázky/COLOR WHEEEL.jpg");
+            Shortcuts.Add(new ShortcutKey(ModifierKeys.Control | ModifierKeys.Alt, Key.S, @"D:\User Files\Obrázky\", OpenFile));
+            Shortcuts.Add(new ShortcutKey(ModifierKeys.Alt, Key.K, @"C:\Program Files\Audacity\Audacity.exe", OpenFile));
         }
         
     }
