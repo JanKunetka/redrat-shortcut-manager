@@ -9,19 +9,20 @@ namespace RedRatShortcuts.ViewModels
     /// </summary>
     public class MainVM : ViewModelBase
     {
-        public ViewModelBase CurrentVM { get; }
+        private readonly NavigationStore navigationStore;
+        public ViewModelBase CurrentVM => navigationStore.CurrentVM;
 
         public MainVM()
         {
-            CurrentVM = new ShortcutsScreenVM();
+            navigationStore = NavigationStore.Instance;
+            navigationStore.CurrentVM = new ShortcutsScreenVM();
+            navigationStore.OnViewModelChanged += WhenVMChanges;
             
             FileOpener.OnErrorPathNotExist += ShowError;
         }
 
-        private void ShowError(string message)
-        {
-            MessageBox.Show(message);
-        }
+        private void WhenVMChanges() => OnPropertyChanged(nameof(CurrentVM));
 
+        private void ShowError(string message) => MessageBox.Show(message);
     }
 }

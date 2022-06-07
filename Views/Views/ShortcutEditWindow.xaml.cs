@@ -2,9 +2,9 @@
 
 namespace RedRatShortcuts.Views.Views
 {
-    public partial class NewShortcutWindow : Window
+    public partial class ShortcutEditWindow : Window
     {
-        public NewShortcutWindow()
+        public ShortcutEditWindow()
         {
             InitializeComponent();
         }

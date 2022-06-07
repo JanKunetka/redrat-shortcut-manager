@@ -8,18 +8,15 @@ namespace RedRatShortcuts.Models.Shortcuts
     public class ShortcutKey
     {
         public ModifierKeys Modifier { get; }
-        public ModifierKeys Modifier2 { get; }
-        public Key Key { get; }
+        public Key[] Keys { get; }
         public string Path { get; }
         public Action<string> Callback { get; }
         public bool CanExecute { get; }
-        public bool Pressed { get; set; }
 
-        public ShortcutKey(ModifierKeys modifier, Key key, string path, Action<string> callback, ModifierKeys modifier2 = ModifierKeys.None, bool canExecute = true)
+        public ShortcutKey(ModifierKeys modifier, Key[] keys, string path, Action<string> callback, bool canExecute = true)
         {
             Modifier = modifier;
-            Modifier2 = modifier2;
-            Key = key;
+            Keys = keys;
             Path = path;
             Callback = callback;
             CanExecute = canExecute;

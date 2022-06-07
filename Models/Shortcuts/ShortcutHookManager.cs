@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Windows.Input;
 
 namespace RedRatShortcuts.Models.Shortcuts
 {
@@ -9,11 +8,10 @@ namespace RedRatShortcuts.Models.Shortcuts
         private const int WH_KEYBOARD_LL = 13;
             
         private delegate IntPtr LowLevelKeyboardProcess(int nCode, IntPtr wParam, IntPtr lParam);
-
         public static event Action OnKeyboardRead;
-        
+
         private static IntPtr HookID = IntPtr.Zero;
-        private static LowLevelKeyboardProcess lowLevelProcess = HookCallback;
+        private static readonly LowLevelKeyboardProcess lowLevelProcess = HookCallback;
 
         private static bool IsHookSetup { get; set; }
 

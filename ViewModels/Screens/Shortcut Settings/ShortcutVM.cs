@@ -32,7 +32,7 @@ namespace RedRatShortcuts.ViewModels
 
         public ShortcutVM(ShortcutKey key)
         {
-            Shortcut = $"{key.Modifier.ToString()} + {key.Key.ToString()}";
+            Shortcut = $"{key.Modifier.ToString()} + {key.Keys.ToString()}";
             Path = key.Path;
         }
     }

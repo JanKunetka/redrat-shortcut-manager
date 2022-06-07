@@ -9,13 +9,15 @@ namespace RedRatShortcuts.Models
     /// </summary>
     public class ShortcutReaderOverseer
     {
+        private ShortcutReader reader;
         public IList<ShortcutKey> Shortcuts { get; private set; }
         private bool doProcessing;
 
         public ShortcutReaderOverseer()
         {
-            Shortcuts = new List<ShortcutKey>(); 
+            Shortcuts = new List<ShortcutKey>();
             AddDefaultData();
+            reader = new ShortcutReader(Shortcuts);
 
             ShortcutHookManager.OnKeyboardRead += Read;
         }
@@ -25,19 +27,7 @@ namespace RedRatShortcuts.Models
 
         private void Read()
         {
-            foreach(ShortcutKey shortcut in Shortcuts)
-            {
-                if (shortcut.Pressed && Keyboard.IsKeyUp(shortcut.Key)) shortcut.Pressed = false;
-                
-                if (shortcut.Pressed) continue;
-                if ((Keyboard.Modifiers & shortcut.Modifier) <= 0) continue;
-                if (!Keyboard.IsKeyDown(shortcut.Key)) continue;
-                if (!shortcut.CanExecute) continue;
-
-                shortcut.Callback?.Invoke(shortcut.Path);
-                shortcut.Pressed = true;
-
-            }
+            reader.Read();
         }
 
         private void OpenFile(string path)
@@ -47,8 +37,8 @@ namespace RedRatShortcuts.Models
         
         private void AddDefaultData()
         {
-            Shortcuts.Add(new ShortcutKey(ModifierKeys.Control | ModifierKeys.Alt, Key.S, @"D:\User Files\Obrázky\", OpenFile));
-            Shortcuts.Add(new ShortcutKey(ModifierKeys.Alt, Key.K, @"C:\Program Files\Audacity\Audacity.exe", OpenFile));
+            Shortcuts.Add(new ShortcutKey(ModifierKeys.Control | ModifierKeys.Alt, new [] {Key.S}, @"D:\User Files\Obrázky\", OpenFile));
+            Shortcuts.Add(new ShortcutKey(ModifierKeys.Alt, new [] {Key.A, Key.U, Key.D}, @"D:\User Files\Obrázky\", OpenFile));
         }
         
     }

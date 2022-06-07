@@ -38,7 +38,7 @@ namespace RedRatShortcuts.ViewModels
 
             ShortcutHookManager.SetupSystemHook();
             LoadShortcuts();
-            ChangeInfoText("App is Running");
+            WriteInfoText("App is Running");
         }
 
         private void QuitApp(object _)
@@ -54,10 +54,10 @@ namespace RedRatShortcuts.ViewModels
 
         private void OpenAddDialog(object _)
         {
-            
+            NavigationStore.Instance.CurrentVM = new ShortcutEditScreenVM();
         }
 
-        private void ChangeInfoText(string message)
+        private void WriteInfoText(string message)
         {
             InfoText = message;
         }
@@ -69,7 +69,7 @@ namespace RedRatShortcuts.ViewModels
                 Shortcuts.Add(new ShortcutVM(key));
             }
         }
-        
+
         public ObservableCollection<ShortcutVM> Shortcuts { get => shortcuts; }
     }
 }

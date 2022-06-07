@@ -10,7 +10,6 @@ namespace RedRatShortcuts.ViewModels.Commands
         private readonly Action<object> OnExecute;
         private readonly Predicate<object>? WhenCanExecute;
         
-
         public RelayCommand(Action<object> onExecute, Predicate<object>? whenCanExecute = null)
         {
             if (onExecute == null) throw new NullReferenceException("Execute command cannot be null");
