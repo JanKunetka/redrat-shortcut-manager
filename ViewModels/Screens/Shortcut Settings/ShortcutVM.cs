@@ -46,7 +46,7 @@ namespace RedRatShortcuts.ViewModels
         
         public ShortcutVM(ShortcutKey key)
         {
-            ShortcutKeys = $"{key.Modifier.ToString()} + {KeysToString(key.Keys)}";
+            ShortcutKeys = KeysToString(key.Keys);
             Path = key.Path;
         }
 

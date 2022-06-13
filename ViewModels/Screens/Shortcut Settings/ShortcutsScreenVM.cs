@@ -36,25 +36,29 @@ namespace RedRatShortcuts.ViewModels
             }
         }
 
-        public RelayCommand OpenAddDialogCommand { get; }
+        public RelayCommand AddShortcutCommand { get; }
+        public RelayCommand RemoveShortcutCommand { get; }
         public RelayCommand ExitCommand { get; }
         public RelayCommand RunCommand { get; }
 
         public ShortcutsScreenVM()
         {
             overseer = new ShortcutReaderOverseer();
-            overseer.OnChangeRunState += UpdateRunningState;
+            overseer.OnChangeRunState += WhenUpdateRunningState;
             
             Shortcuts = new ObservableCollection<ShortcutVM>();
             
-            OpenAddDialogCommand = new RelayCommand(OpenAddDialog);
-            ExitCommand = new RelayCommand(QuitApp);
+            AddShortcutCommand = new RelayCommand(WhenAddShortcut);
+            RemoveShortcutCommand = new RelayCommand(WhenRemoveShortcut);
+            
+            ExitCommand = new RelayCommand(WhenQuitApp);
             RunCommand = new RelayCommand(SwitchRunningState);
 
             ShortcutHookManager.SetupSystemHook();
             LoadShortcuts();
             overseer.ChangeProcessingState(true);
         }
+
 
         /// <summary>
         /// Add/Update a shortcut based on it's existence in the internal collection.
@@ -75,29 +79,40 @@ namespace RedRatShortcuts.ViewModels
             overseer.AddShortcut(shortcut.ShortcutKeys, shortcut.Path);
         }
         
-        private void QuitApp(object _)
+        private void WhenQuitApp(object _)
         {
             ShortcutHookManager.ShutdownSystemHook();
             Application.Current.Shutdown();
         }
 
         private void SwitchRunningState(object _) => overseer.SwitchProcessingState();
-        private void UpdateRunningState()
+        private void WhenUpdateRunningState()
         {
             RunButtonTitle = (overseer.DoProcessing) ? "Stop" : "Run";
             WriteInfoText((overseer.DoProcessing) ? "App is Running" : "App is not Running");
         }
 
-        private void OpenAddDialog(object _)
+        private void WhenAddShortcut(object _)
         {
             NavigationService.Instance.Navigate(new ShortcutEditScreenVM(new ShortcutVM("", "")));
         }
-
-        private void WriteInfoText(string message)
-        {
-            InfoText = message;
-        }
         
+        private void WhenRemoveShortcut(object obj)
+        {
+            if (obj is not ShortcutVM shortcut) return;
+            overseer.RemoveShortcut(shortcut.ShortcutKeys, shortcut.Path);
+            Shortcuts.Remove(shortcut);
+        }
+
+        /// <summary>
+        /// Writes a message into the info text.
+        /// </summary>
+        /// <param name="message">The message to write.</param>
+        private void WriteInfoText(string message) => InfoText = message;
+
+        /// <summary>
+        /// Load all shortcuts stored shortcuts into the UI collection.
+        /// </summary>
         private void LoadShortcuts()
         {
             foreach (ShortcutKey key in overseer.Shortcuts)

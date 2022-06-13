@@ -27,7 +27,5 @@ D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedR
 D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Views\bin\Debug\net6.0-windows\ViewModels.pdb
 D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Views\bin\Debug\net6.0-windows\Models.dll
 D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Views\bin\Debug\net6.0-windows\Models.pdb
-D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Views\obj\Debug\net6.0-windows\Views\ShortcutEditWindow.g.cs
-D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Views\obj\Debug\net6.0-windows\Views\ShortcutEditWindow.baml
 D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Views\obj\Debug\net6.0-windows\Views\ShortcutEditScreen.g.cs
 D:\User Files\Ostravská univerzita\Předměty\6. Semestr\7PRCS\Projekt\App\RedRat Shortcut Manager\Views\obj\Debug\net6.0-windows\Views\ShortcutEditScreen.baml

@@ -1,4 +1,5 @@
-﻿using RedRatShortcuts.ViewModels.Commands;
+﻿using Microsoft.Win32;
+using RedRatShortcuts.ViewModels.Commands;
 using RedRatShortcuts.ViewModels.Core;
 using RedRatShortcuts.ViewModels.Navigation;
 
@@ -45,13 +46,17 @@ namespace RedRatShortcuts.ViewModels
 
         private void WhenOpenFileDialog(object _)
         {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.FileName = "Document";
+
+            bool? result = dialog.ShowDialog();
+            PathText = (result == true) ? dialog.FileName : "";
         }
 
         private void WhenCancelled(object _)
         {
             ShortcutsScreenVM vm = new();
             NavigationService.Instance.Navigate(vm);
-            vm.ProcessShortcut(new ShortcutVM(ShortcutText, PathText));
         }
 
         private void WhenSaved(object _)

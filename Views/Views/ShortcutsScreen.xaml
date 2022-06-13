@@ -5,7 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RedRatShortcuts.Views.Views"
              mc:Ignorable="d"
-             d:DesignWidth="800" d:DesignHeight="450" >
+             d:DesignWidth="800" d:DesignHeight="450"
+             x:Name="shortcutsScreen"
+             >
+    
     <UserControl.Resources>
         <Style TargetType="Image" x:Key="StatusIndicatorStyle">
             <Setter Property="Source" Value="../Resource/img/img_StatusIndicator_Active.png"/>
@@ -19,6 +22,7 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition MaxHeight="60"/>
@@ -39,7 +43,7 @@
                    />
             <Button Grid.Column="1" 
                     Content="Add New"
-                    Command="{Binding OpenAddDialogCommand}"
+                    Command="{Binding AddShortcutCommand}"
                     Margin="30,20,41,10"
                     Padding="10,0,10,0"
                     />
@@ -81,6 +85,7 @@
                                     Margin="20,0,0,0"/>
                             <Button Grid.Column="4"
                                     Content="Remove"
+                                    Command="{Binding DataContext.RemoveShortcutCommand, ElementName=shortcutsScreen}" CommandParameter="{Binding}"
                                     VerticalAlignment="Center"
                                     Width="52" Height="26"
                                     Margin="10,0,0,0"/>

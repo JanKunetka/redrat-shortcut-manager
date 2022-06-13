@@ -41,6 +41,7 @@ namespace RedRatShortcuts.Models
         
         public void AddShortcut(string shortcutKeys, string path) => collection.Add(shortcutKeys, path);
         public void UpdateShortcut(int index, string shortcutKeys, string path) => collection.Update(index, shortcutKeys, path);
+        public void RemoveShortcut(string shortcutKeys, string path) => collection.Remove(shortcutKeys, path);
         
         private void Read()
         {
