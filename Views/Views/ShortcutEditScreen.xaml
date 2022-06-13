@@ -28,7 +28,7 @@
                 </Grid.ColumnDefinitions>
             
                 <Label Grid.Row="0" Grid.Column="0" 
-                       Content="{Binding ShortcutText}"
+                       Content="Alt+"
                        />
                 <TextBox Grid.Row="0" Grid.Column="1"
                          Text="{Binding ShortcutText, UpdateSourceTrigger=PropertyChanged}"

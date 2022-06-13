@@ -6,6 +6,19 @@
              xmlns:local="clr-namespace:RedRatShortcuts.Views.Views"
              mc:Ignorable="d"
              d:DesignWidth="800" d:DesignHeight="450" >
+    <UserControl.Resources>
+        <Style TargetType="Image" x:Key="StatusIndicatorStyle">
+            <Setter Property="Source" Value="../Resource/img/img_StatusIndicator_Active.png"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RunButtonTitle}" Value="Run">
+                    <Setter Property="Source" Value="../Resource/img/img_StatusIndicator_Inactive.png"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RunButtonTitle}" Value="Stop">
+                    <Setter Property="Source" Value="../Resource/img/img_StatusIndicator_Active.png"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition MaxHeight="60"/>
@@ -45,7 +58,6 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0"
                                    Source="../Resource/img/img_ProgramIcon_Default.png"
@@ -58,22 +70,16 @@
                                        VerticalAlignment="Center"
                                        FontSize="16"/>
                             <Label Grid.Column="2"
-                                   Content="WIN+ALT+"
-                                   HorizontalAlignment="Right"
-                                   VerticalAlignment="Center"
-                                   FontSize="16"
-                                   Foreground="Gray"/>
-                            <Label Grid.Column="3"
-                                     Content="{Binding Shortcut}"
+                                     Content="{Binding ShortcutKeys}"
                                      HorizontalAlignment="Left"
                                      VerticalAlignment="Center"
                                      FontSize="16"/>
-                            <Button Grid.Column="4"
+                            <Button Grid.Column="3"
                                     Content="Edit"
                                     VerticalAlignment="Center"
                                     Width="52" Height="26"
                                     Margin="20,0,0,0"/>
-                            <Button Grid.Column="5"
+                            <Button Grid.Column="4"
                                     Content="Remove"
                                     VerticalAlignment="Center"
                                     Width="52" Height="26"
@@ -97,8 +103,7 @@
             </Grid.ColumnDefinitions>
             
             <Image Grid.Column="1"
-                   x:Name="StatusIndicatorImage" 
-                   Source="../Resource/img/img_StatusIndicator_Inactive.png"
+                   Style="{StaticResource StatusIndicatorStyle}"
                    RenderOptions.BitmapScalingMode="Fant"
                    Height="26"
                    Margin="5"/>
@@ -110,7 +115,8 @@
                    FontSize="14"
                    />
             <Button Grid.Column="3"
-                    Content="Run"
+                    Content="{Binding RunButtonTitle}"
+                    Command="{Binding RunCommand}"
                     Margin="6"/>
             <Button Grid.Column="4"
                     Content="Quit"

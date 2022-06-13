@@ -9,24 +9,42 @@ namespace RedRatShortcuts.Models
     /// </summary>
     public class ShortcutReaderOverseer
     {
-        private ShortcutReader reader;
-        public IList<ShortcutKey> Shortcuts { get; private set; }
+        public event Action OnChangeRunState;
+        
+        private readonly ShortcutReader reader;
+        private readonly ShortcutCollection collection;
+        
         private bool doProcessing;
 
         public ShortcutReaderOverseer()
         {
-            Shortcuts = new List<ShortcutKey>();
-            AddDefaultData();
+            collection = new ShortcutCollection(ModifierKeys.Alt, OpenFile);
             reader = new ShortcutReader(Shortcuts);
 
             ShortcutHookManager.OnKeyboardRead += Read;
         }
-        
-        public void Start() => doProcessing = true;
-        public void End() => doProcessing = false;
 
+        /// <summary>
+        /// Set the shortcut processing process activity state.
+        /// </summary>
+        /// <param name="isActive">The state of detecting shortcut inputs.</param>
+        public void ChangeProcessingState(bool isActive)
+        {
+            doProcessing = isActive;
+            OnChangeRunState?.Invoke();
+        }
+
+        /// <summary>
+        /// Switches the state of reading shortcut inputs to the opposite value.
+        /// </summary>
+        public void SwitchProcessingState() => ChangeProcessingState(!doProcessing);
+        
+        public void AddShortcut(string shortcutKeys, string path) => collection.Add(shortcutKeys, path);
+        public void UpdateShortcut(int index, string shortcutKeys, string path) => collection.Update(index, shortcutKeys, path);
+        
         private void Read()
         {
+            if (!doProcessing) return;
             reader.Read();
         }
 
@@ -35,11 +53,8 @@ namespace RedRatShortcuts.Models
             FileOpener.Open(path);
         }
         
-        private void AddDefaultData()
-        {
-            Shortcuts.Add(new ShortcutKey(ModifierKeys.Control | ModifierKeys.Alt, new [] {Key.S}, @"D:\User Files\Obrázky\", OpenFile));
-            Shortcuts.Add(new ShortcutKey(ModifierKeys.Alt, new [] {Key.A, Key.U, Key.D}, @"D:\User Files\Obrázky\", OpenFile));
-        }
+        public bool DoProcessing { get => doProcessing; }
+        public IList<ShortcutKey> Shortcuts => collection.Shortcuts;
         
     }
 }

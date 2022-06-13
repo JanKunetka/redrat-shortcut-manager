@@ -1,6 +1,6 @@
-﻿using System.Windows;
-using RedRatShortcuts.ViewModels.Commands;
+﻿using RedRatShortcuts.ViewModels.Commands;
 using RedRatShortcuts.ViewModels.Core;
+using RedRatShortcuts.ViewModels.Navigation;
 
 namespace RedRatShortcuts.ViewModels
 {
@@ -34,10 +34,10 @@ namespace RedRatShortcuts.ViewModels
         public RelayCommand CancelCommand { get; }
         public RelayCommand OpenFileDialogCommand { get; }
         
-        public ShortcutEditScreenVM()
+        public ShortcutEditScreenVM(ShortcutVM shortcut)
         {
-            shortcutText = "PATAR";
-            pathText = "Patar je borec";
+            shortcutText = shortcut.ShortcutKeys;
+            pathText = shortcut.Path;
             SaveCommand = new RelayCommand(WhenSaved);
             CancelCommand = new RelayCommand(WhenCancelled);
             OpenFileDialogCommand = new RelayCommand(WhenOpenFileDialog);
@@ -45,17 +45,20 @@ namespace RedRatShortcuts.ViewModels
 
         private void WhenOpenFileDialog(object _)
         {
-            NavigationStore.Instance.CurrentVM = new ShortcutsScreenVM();
         }
 
         private void WhenCancelled(object _)
         {
-            NavigationStore.Instance.CurrentVM = new ShortcutsScreenVM();
+            ShortcutsScreenVM vm = new();
+            NavigationService.Instance.Navigate(vm);
+            vm.ProcessShortcut(new ShortcutVM(ShortcutText, PathText));
         }
 
         private void WhenSaved(object _)
         {
-            NavigationStore.Instance.CurrentVM = new ShortcutsScreenVM();
+            ShortcutsScreenVM vm = new();
+            NavigationService.Instance.Navigate(vm);
+            vm.ProcessShortcut(new ShortcutVM(ShortcutText, PathText));
         }
     }
 }

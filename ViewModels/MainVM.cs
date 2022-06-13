@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using RedRatShortcuts.Models.FileSystem;
 using RedRatShortcuts.ViewModels.Core;
+using RedRatShortcuts.ViewModels.Navigation;
 
 namespace RedRatShortcuts.ViewModels
 {
@@ -9,14 +10,14 @@ namespace RedRatShortcuts.ViewModels
     /// </summary>
     public class MainVM : ViewModelBase
     {
-        private readonly NavigationStore navigationStore;
-        public ViewModelBase CurrentVM => navigationStore.CurrentVM;
+        private readonly NavigationService navigation;
+        public ViewModelBase CurrentVM => navigation.CurrentVM;
 
         public MainVM()
         {
-            navigationStore = NavigationStore.Instance;
-            navigationStore.CurrentVM = new ShortcutsScreenVM();
-            navigationStore.OnViewModelChanged += WhenVMChanges;
+            navigation = NavigationService.Instance;
+            navigation.OnViewModelChanged += WhenVMChanges;
+            navigation.Navigate(new ShortcutsScreenVM());
             
             FileOpener.OnErrorPathNotExist += ShowError;
         }
