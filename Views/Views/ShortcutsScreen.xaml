@@ -80,6 +80,7 @@
                                      FontSize="16"/>
                             <Button Grid.Column="3"
                                     Content="Edit"
+                                    Command="{Binding DataContext.EditShortcutCommand, ElementName=shortcutsScreen}" CommandParameter="{Binding}"
                                     VerticalAlignment="Center"
                                     Width="52" Height="26"
                                     Margin="20,0,0,0"/>

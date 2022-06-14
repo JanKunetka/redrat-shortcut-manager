@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using RedRatShortcuts.ViewModels.Commands;
+﻿using RedRatShortcuts.ViewModels.Commands;
 using RedRatShortcuts.ViewModels.Core;
 using RedRatShortcuts.ViewModels.Navigation;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
@@ -11,6 +10,7 @@ namespace RedRatShortcuts.ViewModels
     /// </summary>
     public class ShortcutEditScreenVM : ViewModelBase
     {
+        private ShortcutVM original;
         private string shortcutText;
         public string ShortcutText
         {
@@ -31,25 +31,51 @@ namespace RedRatShortcuts.ViewModels
                 OnPropertyChanged();
             }
         }
+        private string headerText;
+        public string HeaderText
+        {
+            get => headerText;
+            set
+            {
+                headerText = value;
+                OnPropertyChanged();
+            }
+        }
 
         public RelayCommand SaveCommand { get; }
         public RelayCommand CancelCommand { get; }
         public RelayCommand OpenFileDialogCommand { get; }
         public RelayCommand OpenDirectoryDialogCommand { get; }
         
-        public ShortcutEditScreenVM(ShortcutVM shortcut)
+        public ShortcutEditScreenVM(ShortcutVM shortcut, string headerText)
         {
-            shortcutText = shortcut.ShortcutKeys;
-            pathText = shortcut.Path;
+            original = shortcut;
+            ShortcutText = shortcut.ShortcutKeys;
+            PathText = shortcut.Path;
+            HeaderText = headerText;
             SaveCommand = new RelayCommand(WhenSaved);
             CancelCommand = new RelayCommand(WhenCancelled);
             OpenFileDialogCommand = new RelayCommand(WhenOpenFileDialog);
             OpenDirectoryDialogCommand = new RelayCommand(WhenOpenDirectoryDialog);
         }
 
+        private void WhenCancelled(object _)
+        {
+            ShortcutsScreenVM vm = new();
+            NavigationService.Instance.Navigate(vm);
+            vm.AddShortcut(original);
+        }
+
+        private void WhenSaved(object _)
+        {
+            ShortcutsScreenVM vm = new();
+            NavigationService.Instance.Navigate(vm);
+            vm.AddShortcut(new ShortcutVM(ShortcutText, PathText));
+        }
+        
         private void WhenOpenFileDialog(object _)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
+            OpenFileDialog dialog = new();
             dialog.FileName = "Document";
 
             bool? result = dialog.ShowDialog();
@@ -61,19 +87,6 @@ namespace RedRatShortcuts.ViewModels
             using FolderBrowserDialog fileDialog = new();
             DialogResult result = fileDialog.ShowDialog();
             PathText = (result == DialogResult.OK) ? fileDialog.SelectedPath : "";
-        }
-
-        private void WhenCancelled(object _)
-        {
-            ShortcutsScreenVM vm = new();
-            NavigationService.Instance.Navigate(vm);
-        }
-
-        private void WhenSaved(object _)
-        {
-            ShortcutsScreenVM vm = new();
-            NavigationService.Instance.Navigate(vm);
-            vm.ProcessShortcut(new ShortcutVM(ShortcutText, PathText));
         }
     }
 }

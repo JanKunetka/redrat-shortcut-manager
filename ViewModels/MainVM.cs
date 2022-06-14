@@ -1,4 +1,6 @@
-﻿using RedRatShortcuts.Models.FileSystem;
+﻿using RedRatShortcuts.Models;
+using RedRatShortcuts.Models.FileSystem;
+using RedRatShortcuts.Models.Shortcuts;
 using RedRatShortcuts.ViewModels.Core;
 using RedRatShortcuts.ViewModels.Navigation;
 using MessageBox = System.Windows.MessageBox;
@@ -15,6 +17,9 @@ namespace RedRatShortcuts.ViewModels
 
         public MainVM()
         {
+            ShortcutReaderOverseer.Instance.ChangeProcessingState(true);
+            ShortcutHookManager.SetupSystemHook();
+            
             navigation = NavigationService.Instance;
             navigation.OnViewModelChanged += WhenVMChanges;
             navigation.Navigate(new ShortcutsScreenVM());

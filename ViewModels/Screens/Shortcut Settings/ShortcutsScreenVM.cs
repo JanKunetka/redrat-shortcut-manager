@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows;
 using RedRatShortcuts.Models;
 using RedRatShortcuts.Models.Shortcuts;
 using RedRatShortcuts.ViewModels.Commands;
@@ -38,6 +37,7 @@ namespace RedRatShortcuts.ViewModels
         }
 
         public RelayCommand AddShortcutCommand { get; }
+        public RelayCommand EditShortcutCommand { get; }
         public RelayCommand RemoveShortcutCommand { get; }
         public RelayCommand ExitCommand { get; }
         public RelayCommand RunCommand { get; }
@@ -46,18 +46,19 @@ namespace RedRatShortcuts.ViewModels
         {
             overseer = ShortcutReaderOverseer.Instance;
             overseer.OnChangeRunState += WhenUpdateRunningState;
-            
+            WhenUpdateRunningState();
             Shortcuts = new ObservableCollection<ShortcutVM>();
             
             AddShortcutCommand = new RelayCommand(WhenAddShortcut);
+            EditShortcutCommand = new RelayCommand(WhenEditShortcut);
             RemoveShortcutCommand = new RelayCommand(WhenRemoveShortcut);
-            
             ExitCommand = new RelayCommand(WhenQuitApp);
             RunCommand = new RelayCommand(SwitchRunningState);
 
-            ShortcutHookManager.SetupSystemHook();
-            LoadShortcuts();
-            overseer.ChangeProcessingState(true);
+            foreach (ShortcutKey key in overseer.Shortcuts)
+            {
+                Shortcuts.Add(new ShortcutVM(key));
+            }
         }
 
 
@@ -65,16 +66,8 @@ namespace RedRatShortcuts.ViewModels
         /// Add/Update a shortcut based on it's existence in the internal collection.
         /// </summary>
         /// <param name="shortcut"></param>
-        public void ProcessShortcut(ShortcutVM shortcut)
+        public void AddShortcut(ShortcutVM shortcut)
         {
-            for (int i = 0; i < Shortcuts.Count; i++)
-            {
-                if (Shortcuts[i] != shortcut) continue;
-                
-                Shortcuts[i] = shortcut;
-                overseer.UpdateShortcut(i, shortcut.ShortcutKeys, shortcut.Path);
-                break;
-            }
             
             Shortcuts.Add(shortcut);
             overseer.AddShortcut(shortcut.ShortcutKeys, shortcut.Path);
@@ -95,7 +88,14 @@ namespace RedRatShortcuts.ViewModels
 
         private void WhenAddShortcut(object _)
         {
-            NavigationService.Instance.Navigate(new ShortcutEditScreenVM(new ShortcutVM("", "")));
+            NavigationService.Instance.Navigate(new ShortcutEditScreenVM(new ShortcutVM("", ""), "New Shortcut"));
+        }
+
+        private void WhenEditShortcut(object obj)
+        {
+            if (obj is not ShortcutVM shortcut) return;
+            WhenRemoveShortcut(shortcut);
+            NavigationService.Instance.Navigate(new ShortcutEditScreenVM(shortcut, "Edit Shortcut"));
         }
         
         private void WhenRemoveShortcut(object obj)
@@ -110,17 +110,6 @@ namespace RedRatShortcuts.ViewModels
         /// </summary>
         /// <param name="message">The message to write.</param>
         private void WriteInfoText(string message) => InfoText = message;
-
-        /// <summary>
-        /// Load all shortcuts stored shortcuts into the UI collection.
-        /// </summary>
-        private void LoadShortcuts()
-        {
-            foreach (ShortcutKey key in overseer.Shortcuts)
-            {
-                Shortcuts.Add(new ShortcutVM(key));
-            }
-        }
 
     }
 }

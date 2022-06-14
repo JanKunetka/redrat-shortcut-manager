@@ -16,7 +16,7 @@
                     VerticalAlignment="Center"
                     Margin="50,0,50,0">
             
-            <Label Content="New Shortcut"
+            <Label Content="{Binding HeaderText}"
                    HorizontalAlignment="Center"
                    Margin="10,0,10,10"
                    FontSize="24"/>
@@ -51,7 +51,7 @@
                 <Button Grid.Column="2" 
                         Content="File"
                         Command="{Binding OpenFileDialogCommand}"
-                        Margin="20,0,0,0"
+                        Margin="10,0,0,0"
                         Padding="10,0,10,0"
                         />
                 <Button Grid.Column="3" 
