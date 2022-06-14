@@ -7,6 +7,8 @@ namespace RedRatShortcuts.Models.Shortcuts
     /// </summary>
     public class ShortcutReader
     {
+        public event Action<string> OnShortcutExecute;
+        
         private readonly IList<ShortcutKey> shortcuts;
         private IList<ShortcutKey> possibilities;
 
@@ -22,11 +24,10 @@ namespace RedRatShortcuts.Models.Shortcuts
 
         public void Read()
         {
-            
             foreach (ShortcutKey key in possibilities)
             {
-                if (progress >= key.Keys.Length) continue;
                 if (!key.CanExecute) continue;
+                if (progress >= key.Keys.Length) continue;
                 Key keyCode = key.Keys[progress];
                 if ((Keyboard.Modifiers & key.Modifier) <= 0) continue;
                 if (!Keyboard.IsKeyDown(keyCode)) continue;
@@ -51,7 +52,7 @@ namespace RedRatShortcuts.Models.Shortcuts
         private void ConfirmInput(int shortcutIndex)
         {
             ShortcutKey key = shortcuts[shortcutIndex];
-            key.Callback?.Invoke(key.Path);
+            OnShortcutExecute?.Invoke(key.Path);
             CancelInput();
         }
         

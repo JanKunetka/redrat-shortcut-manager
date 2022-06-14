@@ -5,6 +5,7 @@ using RedRatShortcuts.Models.Shortcuts;
 using RedRatShortcuts.ViewModels.Commands;
 using RedRatShortcuts.ViewModels.Core;
 using RedRatShortcuts.ViewModels.Navigation;
+using Application = System.Windows.Application;
 
 namespace RedRatShortcuts.ViewModels
 {
@@ -43,7 +44,7 @@ namespace RedRatShortcuts.ViewModels
 
         public ShortcutsScreenVM()
         {
-            overseer = new ShortcutReaderOverseer();
+            overseer = ShortcutReaderOverseer.Instance;
             overseer.OnChangeRunState += WhenUpdateRunningState;
             
             Shortcuts = new ObservableCollection<ShortcutVM>();

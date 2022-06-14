@@ -1,7 +1,7 @@
-﻿using System.Windows;
-using RedRatShortcuts.Models.FileSystem;
+﻿using RedRatShortcuts.Models.FileSystem;
 using RedRatShortcuts.ViewModels.Core;
 using RedRatShortcuts.ViewModels.Navigation;
+using MessageBox = System.Windows.MessageBox;
 
 namespace RedRatShortcuts.ViewModels
 {
@@ -25,5 +25,6 @@ namespace RedRatShortcuts.ViewModels
         private void WhenVMChanges() => OnPropertyChanged(nameof(CurrentVM));
 
         private void ShowError(string message) => MessageBox.Show(message);
+
     }
 }

@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
         <RootNamespace>RedRatShortcuts.ViewModels</RootNamespace>
 		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
     </PropertyGroup>
 
     <ItemGroup>

@@ -39,6 +39,7 @@
                     <ColumnDefinition Width="75"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
             
                 <Label Grid.Column="0" 
@@ -48,11 +49,17 @@
                          Text="{Binding PathText}"
                          />
                 <Button Grid.Column="2" 
-                        Content="Change"
+                        Content="File"
                         Command="{Binding OpenFileDialogCommand}"
                         Margin="20,0,0,0"
                         Padding="10,0,10,0"
                         />
+                <Button Grid.Column="3" 
+                        Content="Folder"
+                        Command="{Binding OpenDirectoryDialogCommand}"
+                        Margin="10,0,0,0"
+                        Padding="10,0,10,0"
+                />
             </Grid>
         </StackPanel>
         <Grid Grid.Row="1" Background="LightGray">

@@ -12,16 +12,37 @@ namespace RedRatShortcuts.Models
         public event Action OnChangeRunState;
         
         private readonly ShortcutReader reader;
-        private readonly ShortcutCollection collection;
+        private readonly ExternalStorageOverseer external;
         
-        private bool doProcessing;
+        public ShortcutList Shortcuts { get; }
+        public bool DoProcessing { get; private set; }
 
-        public ShortcutReaderOverseer()
+        #region Singleton Pattern
+        private static ShortcutReaderOverseer? instance;
+        private static readonly object padlock = new();
+
+        public static ShortcutReaderOverseer Instance
         {
-            collection = new ShortcutCollection(ModifierKeys.Alt, OpenFile);
-            reader = new ShortcutReader(Shortcuts);
+            get
+            {
+                lock (padlock)
+                {
+                    return instance ??= new ShortcutReaderOverseer();
+                }
+            }
+        }
 
+        #endregion
+        
+        private ShortcutReaderOverseer()
+        {
+            external = new ExternalStorageOverseer();
+            Shortcuts = new ShortcutList(ModifierKeys.Alt, external.Load());
+            Shortcuts.OnChange += () => external.Save(Shortcuts);
+           
+            reader = new ShortcutReader(Shortcuts);
             ShortcutHookManager.OnKeyboardRead += Read;
+            reader.OnShortcutExecute += OpenFile;
         }
 
         /// <summary>
@@ -30,22 +51,25 @@ namespace RedRatShortcuts.Models
         /// <param name="isActive">The state of detecting shortcut inputs.</param>
         public void ChangeProcessingState(bool isActive)
         {
-            doProcessing = isActive;
+            DoProcessing = isActive;
             OnChangeRunState?.Invoke();
         }
 
         /// <summary>
         /// Switches the state of reading shortcut inputs to the opposite value.
         /// </summary>
-        public void SwitchProcessingState() => ChangeProcessingState(!doProcessing);
+        public void SwitchProcessingState() => ChangeProcessingState(!DoProcessing);
         
-        public void AddShortcut(string shortcutKeys, string path) => collection.Add(shortcutKeys, path);
-        public void UpdateShortcut(int index, string shortcutKeys, string path) => collection.Update(index, shortcutKeys, path);
-        public void RemoveShortcut(string shortcutKeys, string path) => collection.Remove(shortcutKeys, path);
-        
+        public void AddShortcut(string shortcutKeys, string path) => Shortcuts.Add(shortcutKeys, path);
+        public void UpdateShortcut(int index, string shortcutKeys, string path) => Shortcuts.Update(index, shortcutKeys, path);
+        public void RemoveShortcut(string shortcutKeys, string path) => Shortcuts.Remove(shortcutKeys, path);
+
+        /// <summary>
+        /// Process user input.
+        /// </summary>
         private void Read()
         {
-            if (!doProcessing) return;
+            if (!DoProcessing) return;
             reader.Read();
         }
 
@@ -53,10 +77,6 @@ namespace RedRatShortcuts.Models
         {
             FileOpener.Open(path);
         }
-        
-        public bool DoProcessing { get => doProcessing; }
-        public IList<ShortcutKey> Shortcuts => collection.Shortcuts;
-        
     }
 }
 

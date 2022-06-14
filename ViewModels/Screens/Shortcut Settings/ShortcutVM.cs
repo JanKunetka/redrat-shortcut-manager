@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System.Windows.Input;
+﻿using RedRatShortcuts.Models.Core;
 using RedRatShortcuts.Models.Shortcuts;
 using RedRatShortcuts.ViewModels.Core;
 
@@ -46,21 +45,10 @@ namespace RedRatShortcuts.ViewModels
         
         public ShortcutVM(ShortcutKey key)
         {
-            ShortcutKeys = KeysToString(key.Keys);
+            ShortcutKeys = KeyStringConverter.KeysToString(key.Keys);
             Path = key.Path;
         }
 
-        private string KeysToString(Key[] keys)
-        {
-            StringBuilder builder = new();
-            foreach (Key key in keys)
-            {
-                builder.Append(key.ToString());
-            }
-
-            return builder.ToString();
-        }
-        
         public static bool operator ==(ShortcutVM a, ShortcutVM b) => a.Equals(b);
         public static bool operator !=(ShortcutVM a, ShortcutVM b) => !a.Equals(b);
 

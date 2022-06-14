@@ -2,6 +2,7 @@
 using RedRatShortcuts.ViewModels.Commands;
 using RedRatShortcuts.ViewModels.Core;
 using RedRatShortcuts.ViewModels.Navigation;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace RedRatShortcuts.ViewModels
 {
@@ -34,6 +35,7 @@ namespace RedRatShortcuts.ViewModels
         public RelayCommand SaveCommand { get; }
         public RelayCommand CancelCommand { get; }
         public RelayCommand OpenFileDialogCommand { get; }
+        public RelayCommand OpenDirectoryDialogCommand { get; }
         
         public ShortcutEditScreenVM(ShortcutVM shortcut)
         {
@@ -42,6 +44,7 @@ namespace RedRatShortcuts.ViewModels
             SaveCommand = new RelayCommand(WhenSaved);
             CancelCommand = new RelayCommand(WhenCancelled);
             OpenFileDialogCommand = new RelayCommand(WhenOpenFileDialog);
+            OpenDirectoryDialogCommand = new RelayCommand(WhenOpenDirectoryDialog);
         }
 
         private void WhenOpenFileDialog(object _)
@@ -51,6 +54,13 @@ namespace RedRatShortcuts.ViewModels
 
             bool? result = dialog.ShowDialog();
             PathText = (result == true) ? dialog.FileName : "";
+        }
+
+        private void WhenOpenDirectoryDialog(object _)
+        {
+            using FolderBrowserDialog fileDialog = new();
+            DialogResult result = fileDialog.ShowDialog();
+            PathText = (result == DialogResult.OK) ? fileDialog.SelectedPath : "";
         }
 
         private void WhenCancelled(object _)
