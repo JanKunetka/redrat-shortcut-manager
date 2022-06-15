@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 
 namespace RedRatShortcuts.Views
 {
@@ -11,6 +13,18 @@ namespace RedRatShortcuts.Views
         {
             InitializeComponent();
         }
-        
+
+        protected override void OnStateChanged(EventArgs e)
+        {
+            if (WindowState == WindowState.Minimized) Hide();
+            base.OnStateChanged(e);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
+            base.OnClosing(e);
+        }
     }
 }

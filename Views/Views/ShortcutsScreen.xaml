@@ -114,14 +114,14 @@
                    Height="26"
                    Margin="5"/>
             <Label Grid.Column="2"
-                   Content="{Binding InfoText}"
+                   Content="{Binding InfoText, FallbackValue=The app is running.}"
                    Margin="4,0,8,0"
                    VerticalAlignment="Center"
                    Foreground="DimGray"
                    FontSize="14"
                    />
             <Button Grid.Column="3"
-                    Content="{Binding RunButtonTitle}"
+                    Content="{Binding RunButtonTitle, FallbackValue=Run}"
                     Command="{Binding RunCommand}"
                     Margin="6"/>
             <Button Grid.Column="4"

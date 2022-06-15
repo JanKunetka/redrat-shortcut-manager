@@ -7,7 +7,8 @@
         xmlns:views="clr-namespace:RedRatShortcuts.Views.Views"
         xmlns:viewmodels="clr-namespace:RedRatShortcuts.ViewModels;assembly=ViewModels"
         mc:Ignorable="d"
-        Title="RedRat Shortcut Manager" 
+        Title="RedRat Shortcut Manager"
+        Icon="../Resource/img/img_App.png"
         Width="800" Height="450"
         MinWidth="500" MinHeight="250">
     <Grid>

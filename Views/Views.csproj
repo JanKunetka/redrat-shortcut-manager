@@ -16,6 +16,10 @@
       <Resource Include="Resource\img\img_StatusIndicator_Inactive.png" />
       <None Remove="Resource\img\img_ProgramIcon_Default.png" />
       <Resource Include="Resource\img\img_ProgramIcon_Default.png" />
+      <None Remove="Resource\img\icon_App.ico" />
+      <Resource Include="Resource\img\icon_App.ico" />
+      <None Remove="Resource\img\img_App.png" />
+      <Resource Include="Resource\img\img_App.png" />
     </ItemGroup>
 
     <ItemGroup>

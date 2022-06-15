@@ -31,5 +31,9 @@ namespace RedRatShortcuts.ViewModels
 
         private void ShowError(string message) => MessageBox.Show(message);
 
+        public void Exit()
+        {
+            ShortcutHookManager.ShutdownSystemHook();
+        }
     }
 }
