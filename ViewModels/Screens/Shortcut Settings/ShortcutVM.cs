@@ -1,4 +1,7 @@
-﻿using RedRatShortcuts.Models.Core;
+﻿using System.IO;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using RedRatShortcuts.Models.Core;
 using RedRatShortcuts.Models.Shortcuts;
 using RedRatShortcuts.ViewModels.Core;
 
@@ -27,6 +30,18 @@ namespace RedRatShortcuts.ViewModels
             set
             {
                 path = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ImageSource iconImage;
+
+        public ImageSource IconImage
+        {
+            get => iconImage;
+            set
+            {
+                iconImage = value;
                 OnPropertyChanged();
             }
         }
@@ -62,5 +77,24 @@ namespace RedRatShortcuts.ViewModels
         {
             return HashCode.Combine(shortcutKeys, path);
         }
+
+        /// <summary>
+        /// Build an icon from the assigned path.
+        /// </summary>
+        public void TryBuildIcon()
+        {
+            if (Path == "") return;
+            FileAttributes attr = File.GetAttributes(Path);
+
+            if (attr.HasFlag(FileAttributes.Directory))
+            {
+                string? absolutePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), @"..\..\..\..\Views\Resource\img\img_ProgramIcon_Default.png");
+                IconImage = new BitmapImage(new Uri(absolutePath));
+                return;
+            }
+            Icon? icon = Icon.ExtractAssociatedIcon(Path);
+            IconImage = icon.ToImageSource();
+        }
+        
     }
 }

@@ -44,10 +44,7 @@ namespace RedRatShortcuts.Models.Shortcuts
         
         private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
-            if (nCode >= 0)
-            {
-                OnKeyboardRead?.Invoke();
-            }
+            if (nCode >= 0) OnKeyboardRead?.Invoke();
             return CallNextHookEx(HookID, nCode, wParam, lParam);
         }
         

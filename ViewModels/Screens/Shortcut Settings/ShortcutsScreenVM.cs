@@ -57,7 +57,9 @@ namespace RedRatShortcuts.ViewModels
 
             foreach (ShortcutKey key in overseer.Shortcuts)
             {
-                Shortcuts.Add(new ShortcutVM(key));
+                ShortcutVM shortcut = new(key);
+                shortcut.TryBuildIcon();
+                Shortcuts.Add(shortcut);
             }
         }
 
@@ -68,7 +70,7 @@ namespace RedRatShortcuts.ViewModels
         /// <param name="shortcut"></param>
         public void AddShortcut(ShortcutVM shortcut)
         {
-            
+            shortcut.TryBuildIcon();
             Shortcuts.Add(shortcut);
             overseer.AddShortcut(shortcut.ShortcutKeys, shortcut.Path);
         }

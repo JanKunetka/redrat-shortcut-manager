@@ -64,7 +64,7 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0"
-                                   Source="../Resource/img/img_ProgramIcon_Default.png"
+                                   Source="{Binding IconImage}"
                                    RenderOptions.BitmapScalingMode="Fant"
                                    Width="48"
                                    Margin="0,0,25,0"/>
