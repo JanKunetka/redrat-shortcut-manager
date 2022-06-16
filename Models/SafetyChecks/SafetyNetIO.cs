@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 
 namespace RedRats.Safety
 {
@@ -18,7 +16,7 @@ namespace RedRats.Safety
             {
                 string message = $"The directory of '{path}' doesn't exist.";
                 OnFireErrorMessage?.Invoke(message);
-                throw new SafetyNetIOException(message);
+                throw new IOException(message);
             }
         }
 
@@ -32,7 +30,7 @@ namespace RedRats.Safety
             {
                 string message = $"The file of '{path}' doesn't exist.";
                 OnFireErrorMessage?.Invoke(message);
-                throw new SafetyNetIOException(message);
+                throw new IOException(message);
             }
         }
 
@@ -40,12 +38,12 @@ namespace RedRats.Safety
         /// Checks if a given path contains any invalid characters.
         /// </summary>
         /// <param name="path">The path to check.</param>
-        /// <exception cref="SafetyNetIOException">Is thrown if path contains invalid characters.</exception>
+        /// <exception cref="IOException">Is thrown if path contains invalid characters.</exception>
         public static void EnsurePathNotContainsInvalidCharacters(string path)
         {
             if (Path.GetInvalidFileNameChars().All(path.Contains))
             {
-                throw new SafetyNetIOException($"The path of '{path}' contains invalid symbols.");
+                throw new IOException($"The path of '{path}' contains invalid symbols.");
             }
         }
     }
