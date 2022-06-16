@@ -4,6 +4,7 @@ using RedRatShortcuts.Models.Shortcuts;
 using RedRatShortcuts.ViewModels.Commands;
 using RedRatShortcuts.ViewModels.Core;
 using RedRatShortcuts.ViewModels.Navigation;
+using RedRatShortcuts.ViewModels.Validation;
 using Application = System.Windows.Application;
 
 namespace RedRatShortcuts.ViewModels
@@ -63,24 +64,14 @@ namespace RedRatShortcuts.ViewModels
             }
         }
 
-
         /// <summary>
         /// Add/Update a shortcut based on it's existence in the internal collection.
         /// </summary>
         /// <param name="shortcut"></param>
         public bool TryAddShortcut(ShortcutVM shortcut)
         {
-            if (shortcut.Path == "" || Uri.IsWellFormedUriString(shortcut.Path, UriKind.Absolute))
-            {
-                MessageBox.Show("The Path is not valid or doesn't exist." ,"Invalid Path");
-                return false;
-            }
-            
-            if (Shortcuts.Any(key => shortcut.ShortcutKeys == key.ShortcutKeys))
-            {
-                MessageBox.Show("A shortcut with the same key sequence already exists." ,"Same shortcut");
-                return false;
-            }
+            try { Validations.IsShortcutSafe(shortcut, Shortcuts); }
+            catch (SystemException) { return false; }
             
             shortcut.TryBuildIcon();
             overseer.AddShortcut(shortcut.ShortcutKeys, shortcut.Path);

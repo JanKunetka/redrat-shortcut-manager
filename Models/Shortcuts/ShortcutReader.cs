@@ -13,6 +13,7 @@ namespace RedRatShortcuts.Models.Shortcuts
         private IList<ShortcutKey> possibilities;
 
         private int progress;
+        private bool markForProgress;
         private int triggerTicks;
         private ShortcutKey? detectedShortcut;
         
@@ -47,6 +48,20 @@ namespace RedRatShortcuts.Models.Shortcuts
         /// </summary>
         private void ProcessInput()
         {
+            
+            if (markForProgress)
+            {
+                progress++;
+                markForProgress = false;
+            }
+            else
+            {
+                if (detectedShortcut != null && (Keyboard.Modifiers & detectedShortcut.Modifier) != 0)
+                {
+                    triggerTicks--;
+                }
+            }
+            
             foreach (ShortcutKey key in possibilities)
             {
                 if (!key.CanExecute) continue;
@@ -55,22 +70,13 @@ namespace RedRatShortcuts.Models.Shortcuts
                 Key keyCode = key.Keys[progress];
                 if (!Keyboard.IsKeyDown(keyCode)) continue;
                 detectedShortcut = null;
-                progress++;
-                triggerTicks = 2;
+                triggerTicks = 1;
                 
-                if (progress == key.Keys.Length)
-                {
+                if (progress == key.Keys.Length-1)
                     detectedShortcut = key;
-                    return;
-                }
+                else markForProgress = true;
                 
-                AdjustPossibilities(key, progress);
-                return;
-            }
-            
-            if (detectedShortcut != null && (Keyboard.Modifiers & detectedShortcut.Modifier) != 0)
-            {
-                triggerTicks--;
+                // AdjustPossibilities(key, progress);
             }
         }
         
@@ -91,7 +97,7 @@ namespace RedRatShortcuts.Models.Shortcuts
         {
             progress = 0;
             detectedShortcut = null;
-            triggerTicks = 2;
+            triggerTicks = 1;
             possibilities = new List<ShortcutKey>(shortcuts);
         }
 

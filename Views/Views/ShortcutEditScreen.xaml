@@ -28,10 +28,13 @@
                 </Grid.ColumnDefinitions>
             
                 <Label Grid.Row="0" Grid.Column="0" 
-                       Content="Alt+"
+                       Content="Alt +"
                        />
                 <TextBox Grid.Row="0" Grid.Column="1"
                          Text="{Binding ShortcutText, UpdateSourceTrigger=PropertyChanged}"
+                         MaxLength="3"
+                         FontSize="14"
+                         VerticalAlignment="Center"
                          />
             </Grid>
             <Grid Margin="5">
@@ -47,6 +50,8 @@
                        />
                 <TextBox Grid.Column="1"
                          Text="{Binding PathText}"
+                         VerticalAlignment="Center"
+                         FontSize="14"
                          />
                 <Button Grid.Column="2" 
                         Content="File"
@@ -57,7 +62,7 @@
                 <Button Grid.Column="3" 
                         Content="Folder"
                         Command="{Binding OpenDirectoryDialogCommand}"
-                        Margin="10,0,0,0"
+                        Margin="5,0,0,0"
                         Padding="10,0,10,0"
                 />
             </Grid>
@@ -73,13 +78,13 @@
                     Content="Save"
                     Command="{Binding SaveCommand}"
                     Margin="5,6,15,6"
-                    Padding="5,3,5,3"
+                    Padding="10,5,10,5"
                     />
             <Button Grid.Column="1"
                     Content="Cancel"
                     Command="{Binding CancelCommand}"
                     Margin="5,6,5,6"
-                    Padding="5,3,5,3"
+                    Padding="10,5,10,5"
                     />
             
         </Grid>

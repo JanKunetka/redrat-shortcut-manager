@@ -60,19 +60,21 @@ namespace RedRatShortcuts.ViewModels
         {
             ShortcutKeys = shortcutKeysKeys;
             Path = path;
-            // FileName = path.Split('')
+            BuildFileName(Path);
         }
 
         public ShortcutVM(ShortcutVM shortcut)
         {
             ShortcutKeys = shortcut.ShortcutKeys;
             Path = shortcut.Path;
+            BuildFileName(Path);
         }
         
         public ShortcutVM(ShortcutKey key)
         {
             ShortcutKeys = KeyStringConverter.KeysToString(key.Keys);
             Path = key.Path;
+            BuildFileName(Path);
         }
 
         public static bool operator ==(ShortcutVM a, ShortcutVM b) => a.Equals(b);
@@ -94,7 +96,7 @@ namespace RedRatShortcuts.ViewModels
         /// </summary>
         public void TryBuildIcon()
         {
-            if (Path == "") return;
+            if (Path == "" || (!File.Exists(Path) && !Directory.Exists(Path))) return;
             FileAttributes attr = File.GetAttributes(Path);
 
             if (attr.HasFlag(FileAttributes.Directory))
@@ -106,6 +108,7 @@ namespace RedRatShortcuts.ViewModels
             Icon? icon = Icon.ExtractAssociatedIcon(Path);
             IconImage = icon.ToImageSource();
         }
-        
+
+        private void BuildFileName(string path) => FileName = path.Split('\\')[^1];
     }
 }

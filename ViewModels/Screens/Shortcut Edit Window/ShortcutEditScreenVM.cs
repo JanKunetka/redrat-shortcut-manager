@@ -69,7 +69,10 @@ namespace RedRatShortcuts.ViewModels
         private void WhenSaved(object _)
         {
             ShortcutsScreenVM vm = new();
-            if (vm.TryAddShortcut(new ShortcutVM(ShortcutText.ToUpper(), PathText))) 
+            string shortcutSequence = ShortcutText.ToUpper();
+            string shortcutPath = PathText.Replace('/', '\\');
+            
+            if (vm.TryAddShortcut(new ShortcutVM(shortcutSequence, shortcutPath))) 
                 NavigationService.Instance.Navigate(vm);
         }
         
@@ -88,5 +91,6 @@ namespace RedRatShortcuts.ViewModels
             DialogResult result = fileDialog.ShowDialog();
             PathText = (result == DialogResult.OK) ? fileDialog.SelectedPath : "";
         }
+        
     }
 }
