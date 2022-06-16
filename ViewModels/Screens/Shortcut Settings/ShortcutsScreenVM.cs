@@ -68,16 +68,29 @@ namespace RedRatShortcuts.ViewModels
         /// Add/Update a shortcut based on it's existence in the internal collection.
         /// </summary>
         /// <param name="shortcut"></param>
-        public void AddShortcut(ShortcutVM shortcut)
+        public bool TryAddShortcut(ShortcutVM shortcut)
         {
+            if (shortcut.Path == "" || Uri.IsWellFormedUriString(shortcut.Path, UriKind.Absolute))
+            {
+                MessageBox.Show("The Path is not valid or doesn't exist." ,"Invalid Path");
+                return false;
+            }
+            
+            if (Shortcuts.Any(key => shortcut.ShortcutKeys == key.ShortcutKeys))
+            {
+                MessageBox.Show("A shortcut with the same key sequence already exists." ,"Same shortcut");
+                return false;
+            }
+            
             shortcut.TryBuildIcon();
-            Shortcuts.Add(shortcut);
             overseer.AddShortcut(shortcut.ShortcutKeys, shortcut.Path);
+            Shortcuts.Add(shortcut);
+            return true;
         }
         
         private void WhenQuitApp(object _)
         {
-            ShortcutHookManager.ShutdownSystemHook();
+            InputHookManager.ShutdownSystemHook();
             Application.Current.Shutdown();
         }
 

@@ -18,7 +18,7 @@ namespace RedRatShortcuts.ViewModels
         public MainVM()
         {
             ShortcutReaderOverseer.Instance.ChangeProcessingState(true);
-            ShortcutHookManager.SetupSystemHook();
+            InputHookManager.SetupSystemHook();
             
             navigation = NavigationService.Instance;
             navigation.OnViewModelChanged += WhenVMChanges;
@@ -27,13 +27,10 @@ namespace RedRatShortcuts.ViewModels
             FileOpener.OnErrorPathNotExist += ShowError;
         }
 
+        public void Exit() => InputHookManager.ShutdownSystemHook();
         private void WhenVMChanges() => OnPropertyChanged(nameof(CurrentVM));
 
         private void ShowError(string message) => MessageBox.Show(message);
 
-        public void Exit()
-        {
-            ShortcutHookManager.ShutdownSystemHook();
-        }
     }
 }

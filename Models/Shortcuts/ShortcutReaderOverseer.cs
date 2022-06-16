@@ -31,7 +31,6 @@ namespace RedRatShortcuts.Models
                 }
             }
         }
-
         #endregion
         
         private ShortcutReaderOverseer()
@@ -41,8 +40,8 @@ namespace RedRatShortcuts.Models
             Shortcuts.OnChange += () => external.Save(Shortcuts);
            
             reader = new ShortcutReader(Shortcuts);
-            ShortcutHookManager.OnKeyboardRead += Read;
-            reader.OnShortcutExecute += OpenFile;
+            InputHookManager.OnKeyboardInput += Read;
+            reader.OnShortcutExecute += FileOpener.Open;
         }
 
         /// <summary>
@@ -60,9 +59,17 @@ namespace RedRatShortcuts.Models
         /// </summary>
         public void SwitchProcessingState() => ChangeProcessingState(!DoProcessing);
         
-        public void AddShortcut(string shortcutKeys, string path) => Shortcuts.Add(shortcutKeys, path);
-        public void UpdateShortcut(int index, string shortcutKeys, string path) => Shortcuts.Update(index, shortcutKeys, path);
-        public void RemoveShortcut(string shortcutKeys, string path) => Shortcuts.Remove(shortcutKeys, path);
+        public void AddShortcut(string shortcutKeys, string path)
+        {
+            Shortcuts.Add(shortcutKeys, path);
+            reader.RefreshShortcuts(Shortcuts);
+        }
+
+        public void RemoveShortcut(string shortcutKeys, string path)
+        {
+            Shortcuts.Remove(shortcutKeys, path);
+            reader.RefreshShortcuts(Shortcuts);
+        }
 
         /// <summary>
         /// Process user input.
@@ -71,11 +78,6 @@ namespace RedRatShortcuts.Models
         {
             if (!DoProcessing) return;
             reader.Read();
-        }
-
-        private void OpenFile(string path)
-        {
-            FileOpener.Open(path);
         }
     }
 }

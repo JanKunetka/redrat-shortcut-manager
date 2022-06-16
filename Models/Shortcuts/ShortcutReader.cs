@@ -9,60 +9,107 @@ namespace RedRatShortcuts.Models.Shortcuts
     {
         public event Action<string> OnShortcutExecute;
         
-        private readonly IList<ShortcutKey> shortcuts;
+        private IList<ShortcutKey> shortcuts;
         private IList<ShortcutKey> possibilities;
 
-        private bool modifiersPressed;
-        private bool readyToProgress;
         private int progress;
+        private int triggerTicks;
+        private ShortcutKey? detectedShortcut;
         
         public ShortcutReader(IList<ShortcutKey> shortcuts)
         {
-            this.shortcuts = shortcuts;
-            CancelInput();
+            RefreshShortcuts(shortcuts);
         }
 
+        /// <summary>
+        /// Read Keyboard input.
+        /// </summary>
         public void Read()
+        {
+            ProcessInput();
+
+            if (triggerTicks > 0 || detectedShortcut == null) return;
+            ConfirmInput(detectedShortcut);
+        }
+
+        /// <summary>
+        /// Refreshes the internal list of shortcuts.
+        /// </summary>
+        /// <param name="shortcuts">The shortcut list with new data.</param>
+        public void RefreshShortcuts(IList<ShortcutKey> shortcuts)
+        {
+            this.shortcuts = new List<ShortcutKey>(shortcuts);
+            CancelInput();
+        }
+        
+        /// <summary>
+        /// Processes the entered input.
+        /// </summary>
+        private void ProcessInput()
         {
             foreach (ShortcutKey key in possibilities)
             {
                 if (!key.CanExecute) continue;
                 if (progress >= key.Keys.Length) continue;
+                if ((Keyboard.Modifiers & key.Modifier) == 0) continue;
                 Key keyCode = key.Keys[progress];
-                if ((Keyboard.Modifiers & key.Modifier) <= 0) continue;
                 if (!Keyboard.IsKeyDown(keyCode)) continue;
-
-                if (progress == key.Keys.Length - 1)
-                {
-                    ConfirmInput(progress);
-                    break;
-                }
-                
+                detectedShortcut = null;
                 progress++;
-                possibilities = possibilities.Where(BothKeysAreSame).ToList();
-                break;
+                triggerTicks = 2;
                 
-                bool BothKeysAreSame(ShortcutKey possibleKey)
+                if (progress == key.Keys.Length)
                 {
-                    return progress < possibleKey.Keys.Length - 1 && possibleKey.Keys[progress] == key.Keys[progress];
+                    detectedShortcut = key;
+                    return;
                 }
+                
+                AdjustPossibilities(key, progress);
+                return;
+            }
+            
+            if (detectedShortcut != null && (Keyboard.Modifiers & detectedShortcut.Modifier) != 0)
+            {
+                triggerTicks--;
             }
         }
         
-        private void ConfirmInput(int shortcutIndex)
+        /// <summary>
+        /// Confirm an inputted shortcut.
+        /// </summary>
+        /// <param name="key">The shortcut to activate.</param>
+        private void ConfirmInput(ShortcutKey key)
         {
-            ShortcutKey key = shortcuts[shortcutIndex];
             OnShortcutExecute?.Invoke(key.Path);
             CancelInput();
         }
         
+        /// <summary>
+        /// Reset input.
+        /// </summary>
         private void CancelInput()
         {
             progress = 0;
-            modifiersPressed = false;
-            readyToProgress = false;
+            detectedShortcut = null;
+            triggerTicks = 2;
             possibilities = new List<ShortcutKey>(shortcuts);
         }
 
+        /// <summary>
+        /// Decrease the pool of possible shortcuts based on the latest key.
+        /// </summary>
+        /// <param name="possibleKey">The last inputted key.</param>
+        /// <param name="progress">The current progress through a shortcut sequence.</param>
+        private void AdjustPossibilities(ShortcutKey possibleKey, int progress)
+        {
+            IList<ShortcutKey> original = new List<ShortcutKey>(possibilities);
+            possibilities.Clear();
+            foreach (ShortcutKey key in original)
+            {
+                if (progress >= key.Keys.Length) continue;
+                if (possibleKey.Keys[progress] != key.Keys[progress]) continue;
+                possibilities.Add(key);
+            }
+        }
     }
 }

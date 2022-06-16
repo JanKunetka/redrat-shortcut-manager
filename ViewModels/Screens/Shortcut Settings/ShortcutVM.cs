@@ -34,8 +34,18 @@ namespace RedRatShortcuts.ViewModels
             }
         }
 
+        private string fileName;
+        public string FileName
+        {
+            get => fileName;
+            set
+            {
+                fileName = value;
+                OnPropertyChanged();
+            }
+        }
+        
         private ImageSource iconImage;
-
         public ImageSource IconImage
         {
             get => iconImage;
@@ -50,6 +60,7 @@ namespace RedRatShortcuts.ViewModels
         {
             ShortcutKeys = shortcutKeysKeys;
             Path = path;
+            // FileName = path.Split('')
         }
 
         public ShortcutVM(ShortcutVM shortcut)

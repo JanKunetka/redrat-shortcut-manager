@@ -9,8 +9,8 @@ namespace RedRatShortcuts.Views
     /// </summary>
     public partial class App : Application
     {
-        private SystemTrayMenu systemTray;
         private MainVM mainDataContext;
+        private SystemTrayMenu systemTray;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -34,6 +34,9 @@ namespace RedRatShortcuts.Views
             base.OnExit(e);
         }
 
+        /// <summary>
+        /// Show the Main Window.
+        /// </summary>
         private void ShowWindow()
         {
             MainWindow.Show();

@@ -63,14 +63,14 @@ namespace RedRatShortcuts.ViewModels
         {
             ShortcutsScreenVM vm = new();
             NavigationService.Instance.Navigate(vm);
-            vm.AddShortcut(original);
+            vm.TryAddShortcut(original);
         }
 
         private void WhenSaved(object _)
         {
             ShortcutsScreenVM vm = new();
-            NavigationService.Instance.Navigate(vm);
-            vm.AddShortcut(new ShortcutVM(ShortcutText, PathText));
+            if (vm.TryAddShortcut(new ShortcutVM(ShortcutText.ToUpper(), PathText))) 
+                NavigationService.Instance.Navigate(vm);
         }
         
         private void WhenOpenFileDialog(object _)
